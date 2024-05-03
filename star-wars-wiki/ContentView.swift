@@ -9,13 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView{
+            CharactersView()
+                 .tabItem {
+                     Label("Characters", systemImage: "person.3")
+                 }
+             StarShipsView()
+                 .tabItem {
+                     Label("Star Ships", systemImage: "airplane")
+                 }
+             PlanetsView()
+                 .tabItem {
+                     Label("Planets", systemImage: "globe.europe.africa")
+                 }
         }
-        .padding()
     }
 }
 

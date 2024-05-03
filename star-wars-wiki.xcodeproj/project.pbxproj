@@ -14,6 +14,9 @@
 		317012D22BE51A1700E37750 /* star_wars_wikiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012D12BE51A1700E37750 /* star_wars_wikiTests.swift */; };
 		317012DC2BE51A1700E37750 /* star_wars_wikiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012DB2BE51A1700E37750 /* star_wars_wikiUITests.swift */; };
 		317012DE2BE51A1700E37750 /* star_wars_wikiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012DD2BE51A1700E37750 /* star_wars_wikiUITestsLaunchTests.swift */; };
+		31EB6B102BE520F000205F7D /* CharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B0F2BE520F000205F7D /* CharactersView.swift */; };
+		31EB6B122BE520FE00205F7D /* PlanetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B112BE520FE00205F7D /* PlanetsView.swift */; };
+		31EB6B142BE5210A00205F7D /* StarShipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B132BE5210A00205F7D /* StarShipsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		317012D72BE51A1700E37750 /* star-wars-wikiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "star-wars-wikiUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		317012DB2BE51A1700E37750 /* star_wars_wikiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = star_wars_wikiUITests.swift; sourceTree = "<group>"; };
 		317012DD2BE51A1700E37750 /* star_wars_wikiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = star_wars_wikiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		31EB6B0F2BE520F000205F7D /* CharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersView.swift; sourceTree = "<group>"; };
+		31EB6B112BE520FE00205F7D /* PlanetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetsView.swift; sourceTree = "<group>"; };
+		31EB6B132BE5210A00205F7D /* StarShipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarShipsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,9 @@
 				317012C22BE51A1600E37750 /* ContentView.swift */,
 				317012C42BE51A1700E37750 /* Assets.xcassets */,
 				317012C62BE51A1700E37750 /* Preview Content */,
+				31EB6B0F2BE520F000205F7D /* CharactersView.swift */,
+				31EB6B112BE520FE00205F7D /* PlanetsView.swift */,
+				31EB6B132BE5210A00205F7D /* StarShipsView.swift */,
 			);
 			path = "star-wars-wiki";
 			sourceTree = "<group>";
@@ -259,6 +268,9 @@
 			files = (
 				317012C32BE51A1600E37750 /* ContentView.swift in Sources */,
 				317012C12BE51A1600E37750 /* star_wars_wikiApp.swift in Sources */,
+				31EB6B122BE520FE00205F7D /* PlanetsView.swift in Sources */,
+				31EB6B102BE520F000205F7D /* CharactersView.swift in Sources */,
+				31EB6B142BE5210A00205F7D /* StarShipsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +442,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -459,6 +472,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
