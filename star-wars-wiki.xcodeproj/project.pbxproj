@@ -3,20 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3153CC0D2BE6E1DB0013F65A /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 3153CC0B2BE6E1DB0013F65A /* schema.graphqls */; };
+		3153CC192BE6E3450013F65A /* SWAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 3153CC182BE6E3450013F65A /* SWAPI */; };
+		3153CC1B2BE6E3E90013F65A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153CC1A2BE6E3E90013F65A /* Network.swift */; };
+		3153CC1D2BE6E4730013F65A /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153CC1C2BE6E4730013F65A /* CharacterViewModel.swift */; };
 		317012C12BE51A1600E37750 /* star_wars_wikiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012C02BE51A1600E37750 /* star_wars_wikiApp.swift */; };
-		317012C32BE51A1600E37750 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012C22BE51A1600E37750 /* ContentView.swift */; };
+		317012C32BE51A1600E37750 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012C22BE51A1600E37750 /* MainView.swift */; };
 		317012C52BE51A1700E37750 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317012C42BE51A1700E37750 /* Assets.xcassets */; };
 		317012C82BE51A1700E37750 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317012C72BE51A1700E37750 /* Preview Assets.xcassets */; };
-		317012D22BE51A1700E37750 /* star_wars_wikiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012D12BE51A1700E37750 /* star_wars_wikiTests.swift */; };
-		317012DC2BE51A1700E37750 /* star_wars_wikiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012DB2BE51A1700E37750 /* star_wars_wikiUITests.swift */; };
-		317012DE2BE51A1700E37750 /* star_wars_wikiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012DD2BE51A1700E37750 /* star_wars_wikiUITestsLaunchTests.swift */; };
+		31AA501D2BE6F31B00B00781 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA501C2BE6F31B00B00781 /* CharacterDetailView.swift */; };
 		31EB6B102BE520F000205F7D /* CharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B0F2BE520F000205F7D /* CharactersView.swift */; };
 		31EB6B122BE520FE00205F7D /* PlanetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B112BE520FE00205F7D /* PlanetsView.swift */; };
 		31EB6B142BE5210A00205F7D /* StarShipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B132BE5210A00205F7D /* StarShipsView.swift */; };
+		31EB6B182BE670A600205F7D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 31EB6B172BE670A600205F7D /* Apollo */; };
+		31EB6B1A2BE670A600205F7D /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 31EB6B192BE670A600205F7D /* ApolloSQLite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,16 +41,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3153CC0B2BE6E1DB0013F65A /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		3153CC132BE6E2730013F65A /* People.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = People.graphql; sourceTree = "<group>"; };
+		3153CC1A2BE6E3E90013F65A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		3153CC1C2BE6E4730013F65A /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
 		317012BD2BE51A1600E37750 /* star-wars-wiki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "star-wars-wiki.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		317012C02BE51A1600E37750 /* star_wars_wikiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = star_wars_wikiApp.swift; sourceTree = "<group>"; };
-		317012C22BE51A1600E37750 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		317012C22BE51A1600E37750 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		317012C42BE51A1700E37750 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		317012C72BE51A1700E37750 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		317012CD2BE51A1700E37750 /* star-wars-wikiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "star-wars-wikiTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		317012D12BE51A1700E37750 /* star_wars_wikiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = star_wars_wikiTests.swift; sourceTree = "<group>"; };
 		317012D72BE51A1700E37750 /* star-wars-wikiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "star-wars-wikiUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		317012DB2BE51A1700E37750 /* star_wars_wikiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = star_wars_wikiUITests.swift; sourceTree = "<group>"; };
-		317012DD2BE51A1700E37750 /* star_wars_wikiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = star_wars_wikiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		31AA501C2BE6F31B00B00781 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		31EB6B0F2BE520F000205F7D /* CharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersView.swift; sourceTree = "<group>"; };
 		31EB6B112BE520FE00205F7D /* PlanetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetsView.swift; sourceTree = "<group>"; };
 		31EB6B132BE5210A00205F7D /* StarShipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarShipsView.swift; sourceTree = "<group>"; };
@@ -57,6 +63,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3153CC192BE6E3450013F65A /* SWAPI in Frameworks */,
+				31EB6B182BE670A600205F7D /* Apollo in Frameworks */,
+				31EB6B1A2BE670A600205F7D /* ApolloSQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,13 +86,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3136D9DB2BE6DC8D0045472A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				317012C22BE51A1600E37750 /* MainView.swift */,
+				31EB6B0F2BE520F000205F7D /* CharactersView.swift */,
+				31EB6B112BE520FE00205F7D /* PlanetsView.swift */,
+				31EB6B132BE5210A00205F7D /* StarShipsView.swift */,
+				31AA501C2BE6F31B00B00781 /* CharacterDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3153CC0C2BE6E1DB0013F65A /* graphql */ = {
+			isa = PBXGroup;
+			children = (
+				3153CC0B2BE6E1DB0013F65A /* schema.graphqls */,
+				3153CC132BE6E2730013F65A /* People.graphql */,
+			);
+			path = graphql;
+			sourceTree = "<group>";
+		};
+		3153CC172BE6E3450013F65A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		317012B42BE51A1600E37750 = {
 			isa = PBXGroup;
 			children = (
+				3153CC0C2BE6E1DB0013F65A /* graphql */,
 				317012BF2BE51A1600E37750 /* star-wars-wiki */,
-				317012D02BE51A1700E37750 /* star-wars-wikiTests */,
-				317012DA2BE51A1700E37750 /* star-wars-wikiUITests */,
 				317012BE2BE51A1600E37750 /* Products */,
+				3153CC172BE6E3450013F65A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,13 +137,12 @@
 		317012BF2BE51A1600E37750 /* star-wars-wiki */ = {
 			isa = PBXGroup;
 			children = (
+				3136D9DB2BE6DC8D0045472A /* View */,
 				317012C02BE51A1600E37750 /* star_wars_wikiApp.swift */,
-				317012C22BE51A1600E37750 /* ContentView.swift */,
 				317012C42BE51A1700E37750 /* Assets.xcassets */,
 				317012C62BE51A1700E37750 /* Preview Content */,
-				31EB6B0F2BE520F000205F7D /* CharactersView.swift */,
-				31EB6B112BE520FE00205F7D /* PlanetsView.swift */,
-				31EB6B132BE5210A00205F7D /* StarShipsView.swift */,
+				3153CC1A2BE6E3E90013F65A /* Network.swift */,
+				3153CC1C2BE6E4730013F65A /* CharacterViewModel.swift */,
 			);
 			path = "star-wars-wiki";
 			sourceTree = "<group>";
@@ -117,23 +153,6 @@
 				317012C72BE51A1700E37750 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		317012D02BE51A1700E37750 /* star-wars-wikiTests */ = {
-			isa = PBXGroup;
-			children = (
-				317012D12BE51A1700E37750 /* star_wars_wikiTests.swift */,
-			);
-			path = "star-wars-wikiTests";
-			sourceTree = "<group>";
-		};
-		317012DA2BE51A1700E37750 /* star-wars-wikiUITests */ = {
-			isa = PBXGroup;
-			children = (
-				317012DB2BE51A1700E37750 /* star_wars_wikiUITests.swift */,
-				317012DD2BE51A1700E37750 /* star_wars_wikiUITestsLaunchTests.swift */,
-			);
-			path = "star-wars-wikiUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,6 +171,11 @@
 			dependencies = (
 			);
 			name = "star-wars-wiki";
+			packageProductDependencies = (
+				31EB6B172BE670A600205F7D /* Apollo */,
+				31EB6B192BE670A600205F7D /* ApolloSQLite */,
+				3153CC182BE6E3450013F65A /* SWAPI */,
+			);
 			productName = "star-wars-wiki";
 			productReference = 317012BD2BE51A1600E37750 /* star-wars-wiki.app */;
 			productType = "com.apple.product-type.application";
@@ -224,6 +248,10 @@
 				Base,
 			);
 			mainGroup = 317012B42BE51A1600E37750;
+			packageReferences = (
+				31EB6B162BE670A600205F7D /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				3153CC162BE6E30A0013F65A /* XCLocalSwiftPackageReference "SWAPI" */,
+			);
 			productRefGroup = 317012BE2BE51A1600E37750 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -241,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				317012C82BE51A1700E37750 /* Preview Assets.xcassets in Resources */,
+				3153CC0D2BE6E1DB0013F65A /* schema.graphqls in Resources */,
 				317012C52BE51A1700E37750 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,11 +295,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				317012C32BE51A1600E37750 /* ContentView.swift in Sources */,
+				317012C32BE51A1600E37750 /* MainView.swift in Sources */,
 				317012C12BE51A1600E37750 /* star_wars_wikiApp.swift in Sources */,
+				3153CC1B2BE6E3E90013F65A /* Network.swift in Sources */,
 				31EB6B122BE520FE00205F7D /* PlanetsView.swift in Sources */,
+				3153CC1D2BE6E4730013F65A /* CharacterViewModel.swift in Sources */,
 				31EB6B102BE520F000205F7D /* CharactersView.swift in Sources */,
 				31EB6B142BE5210A00205F7D /* StarShipsView.swift in Sources */,
+				31AA501D2BE6F31B00B00781 /* CharacterDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +310,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				317012D22BE51A1700E37750 /* star_wars_wikiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,8 +317,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				317012DC2BE51A1700E37750 /* star_wars_wikiUITests.swift in Sources */,
-				317012DE2BE51A1700E37750 /* star_wars_wikiUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +471,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -472,7 +501,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -602,6 +631,42 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		3153CC162BE6E30A0013F65A /* XCLocalSwiftPackageReference "SWAPI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SWAPI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		31EB6B162BE670A600205F7D /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3153CC182BE6E3450013F65A /* SWAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3153CC162BE6E30A0013F65A /* XCLocalSwiftPackageReference "SWAPI" */;
+			productName = SWAPI;
+		};
+		31EB6B172BE670A600205F7D /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31EB6B162BE670A600205F7D /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		31EB6B192BE670A600205F7D /* ApolloSQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31EB6B162BE670A600205F7D /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloSQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 317012B52BE51A1600E37750 /* Project object */;
 }

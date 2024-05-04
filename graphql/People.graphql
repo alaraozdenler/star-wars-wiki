@@ -1,0 +1,34 @@
+query People {
+  allPeople {
+    people {
+      name
+      filmConnection {
+        films {
+          title
+          }
+        }
+      birthYear
+      homeworld {
+        name
+      }
+      gender
+      height
+      hairColor
+      eyeColor
+      skinColor
+      species {
+        name
+      }
+      starshipConnection {
+        starships {
+          name
+        }
+      }
+      vehicleConnection {
+        vehicles {
+          name
+        }
+      }
+    }
+  }
+}
