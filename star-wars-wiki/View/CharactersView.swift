@@ -14,10 +14,10 @@ struct CharactersView: View {
             List(characterViewModel.characters, id: \.self) { character in
                 NavigationLink {
                     CharacterDetailView(character: character)
-                } label :{
+                } label: {
                     VStack (alignment: .leading){
                         Text(character.name!).font(.headline)
-                        Text(String((character.filmConnection?.films!.endIndex)! + 1) + " films").font(.subheadline)
+                        Text(String((character.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
                     }
                 }
             }
