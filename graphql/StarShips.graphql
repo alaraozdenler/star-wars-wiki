@@ -1,0 +1,23 @@
+query StarShips {
+  allStarships {
+    starships {
+      name
+      model
+      passengers
+      pilotConnection {
+        pilots {
+          name
+        }
+      }
+      filmConnection {
+        films {
+          title
+        }
+      }
+      starshipClass
+      hyperdriveRating
+      maxAtmospheringSpeed
+      crew
+    }
+  }
+}

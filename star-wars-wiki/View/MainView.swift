@@ -9,13 +9,14 @@ import SwiftUI
 
 struct MainView: View {
     @State var characterViewModel = CharacterViewModel(characters: [])
+    @State var starShipViewModel = StarShipViewModel(starShips: [])
     var body: some View {
         TabView {
             CharactersView(characterViewModel: characterViewModel)
                  .tabItem {
                      Label("Characters", systemImage: "person.3")
                  }
-             StarShipsView()
+             StarShipsView(starShipViewModel: starShipViewModel)
                  .tabItem {
                      Label("Star Ships", systemImage: "airplane")
                  }

@@ -33,6 +33,9 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "PersonFilmsConnection": return SWAPI.Objects.PersonFilmsConnection
     case "PersonStarshipsConnection": return SWAPI.Objects.PersonStarshipsConnection
     case "PersonVehiclesConnection": return SWAPI.Objects.PersonVehiclesConnection
+    case "StarshipsConnection": return SWAPI.Objects.StarshipsConnection
+    case "StarshipPilotsConnection": return SWAPI.Objects.StarshipPilotsConnection
+    case "StarshipFilmsConnection": return SWAPI.Objects.StarshipFilmsConnection
     default: return nil
     }
   }
