@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var characterViewModel = CharacterViewModel(characters: [])
-    @State var starshipViewModel = StarShipViewModel(starships: [])
-    @State var planetViewModel = PlanetViewModel(planets: [])
+    @State private var characterViewModel = CharacterViewModel(characters: [])
+    @State private var starshipViewModel = StarShipViewModel(starships: [])
+    @State private var planetViewModel = PlanetViewModel(planets: [])
     var body: some View {
         TabView {
             CharactersView(characterViewModel: characterViewModel)
-                 .tabItem {
-                     Label("Characters", systemImage: "person.3")
-                 }
-             StarShipsView(starshipViewModel: starshipViewModel)
-                 .tabItem {
-                     Label("Starships", systemImage: "airplane")
-                 }
+                .tabItem {
+                    Label("Characters", systemImage: "person.3")
+                }
+            StarShipsView(starshipViewModel: starshipViewModel)
+                .tabItem {
+                    Label("Starships", systemImage: "airplane")
+                }
             PlanetsView(planetViewModel: planetViewModel)
-                 .tabItem {
-                     Label("Planets", systemImage: "globe.europe.africa")
-                 }
+                .tabItem {
+                    Label("Planets", systemImage: "globe.europe.africa")
+                }
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "931440278103ba39b2d835f2c346aeb873ebcb4ff41767ce2ae24e250b359dbe",
+  "originHash" : "5ccd897cb1a54e3859982bfc73148d54f1a588a0d3a0a1fd3b56befa8ca0b05a",
   "pins" : [
     {
       "identity" : "apollo-ios",
@@ -11,12 +11,30 @@
       }
     },
     {
+      "identity" : "apollo-ios-pagination",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apollographql/apollo-ios-pagination",
+      "state" : {
+        "revision" : "d8ddfdbc22d8cd1515a7e8288498e1056850d7f8",
+        "version" : "0.2.0"
+      }
+    },
+    {
       "identity" : "sqlite.swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stephencelis/SQLite.swift.git",
       "state" : {
         "revision" : "a95fc6df17d108bd99210db5e8a9bac90fe984b8",
         "version" : "0.15.3"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "revision" : "94cf62b3ba8d4bed62680a282d4c25f9c63c2efb",
+        "version" : "1.1.0"
       }
     }
   ],

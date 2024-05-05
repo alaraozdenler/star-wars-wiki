@@ -7,10 +7,24 @@ public class StarShipsQuery: GraphQLQuery {
   public static let operationName: String = "StarShips"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query StarShips { allStarships { __typename starships { __typename name model passengers pilotConnection { __typename pilots { __typename name } } filmConnection { __typename films { __typename title } } starshipClass hyperdriveRating maxAtmospheringSpeed crew } } }"#
+      #"query StarShips($after: String, $first: Int) { allStarships(after: $after, first: $first) { __typename starships { __typename name model passengers pilotConnection { __typename pilots { __typename name } } filmConnection { __typename films { __typename title } } starshipClass hyperdriveRating maxAtmospheringSpeed crew } pageInfo { __typename hasNextPage endCursor } } }"#
     ))
 
-  public init() {}
+  public var after: GraphQLNullable<String>
+  public var first: GraphQLNullable<Int>
+
+  public init(
+    after: GraphQLNullable<String>,
+    first: GraphQLNullable<Int>
+  ) {
+    self.after = after
+    self.first = first
+  }
+
+  public var __variables: Variables? { [
+    "after": after,
+    "first": first
+  ] }
 
   public struct Data: SWAPI.SelectionSet {
     public let __data: DataDict
@@ -18,7 +32,10 @@ public class StarShipsQuery: GraphQLQuery {
 
     public static var __parentType: ApolloAPI.ParentType { SWAPI.Objects.Root }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("allStarships", AllStarships?.self),
+      .field("allStarships", AllStarships?.self, arguments: [
+        "after": .variable("after"),
+        "first": .variable("first")
+      ]),
     ] }
 
     public var allStarships: AllStarships? { __data["allStarships"] }
@@ -34,6 +51,7 @@ public class StarShipsQuery: GraphQLQuery {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("starships", [Starship?]?.self),
+        .field("pageInfo", PageInfo.self),
       ] }
 
       /// A list of all of the objects returned in the connection. This is a convenience
@@ -43,6 +61,8 @@ public class StarShipsQuery: GraphQLQuery {
       /// the edge to enable efficient pagination, this shortcut cannot be used, and the
       /// full "{ edges { node } }" version should be used instead.
       public var starships: [Starship?]? { __data["starships"] }
+      /// Information to aid in pagination.
+      public var pageInfo: PageInfo { __data["pageInfo"] }
 
       /// AllStarships.Starship
       ///
@@ -162,6 +182,26 @@ public class StarShipsQuery: GraphQLQuery {
             public var title: String? { __data["title"] }
           }
         }
+      }
+
+      /// AllStarships.PageInfo
+      ///
+      /// Parent Type: `PageInfo`
+      public struct PageInfo: SWAPI.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { SWAPI.Objects.PageInfo }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("hasNextPage", Bool.self),
+          .field("endCursor", String?.self),
+        ] }
+
+        /// When paginating forwards, are there more items?
+        public var hasNextPage: Bool { __data["hasNextPage"] }
+        /// When paginating forwards, the cursor to continue.
+        public var endCursor: String? { __data["endCursor"] }
       }
     }
   }

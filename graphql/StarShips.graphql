@@ -1,5 +1,5 @@
-query StarShips {
-  allStarships {
+query StarShips ($after:String, $first: Int) {
+  allStarships(after:$after, first: $first) {
     starships {
       name
       model
@@ -18,6 +18,10 @@ query StarShips {
       hyperdriveRating
       maxAtmospheringSpeed
       crew
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
     }
   }
 }

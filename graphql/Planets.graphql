@@ -1,5 +1,5 @@
-query Planets {
-  allPlanets {
+query Planets ($after:String, $first: Int) {
+  allPlanets(after:$after, first: $first) {
     planets {
       name
       population
@@ -19,6 +19,10 @@ query Planets {
           name
         }
       }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
     }
   }
 }

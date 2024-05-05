@@ -25,22 +25,6 @@ struct CharacterDetailView: View {
                             Text(character.gender!)
                         }
                         HStack {
-                            Text("Height: ").fontWeight(.bold)
-                            Text(String(character.height!))
-                        }
-                        HStack {
-                            Text("Eye Color: ").fontWeight(.bold)
-                            Text(character.eyeColor!)
-                        }
-                        HStack {
-                            Text("Skin Color: ").fontWeight(.bold)
-                            Text(character.skinColor!)
-                        }
-                        HStack {
-                            Text("Hair Color: ").fontWeight(.bold)
-                            Text(character.hairColor!)
-                        }
-                        HStack {
                             Text("Homeworld: ").fontWeight(.bold)
                             Text((character.homeworld?.name)!)
                         }
@@ -59,6 +43,33 @@ struct CharacterDetailView: View {
                     .cornerRadius(5)
                     .shadow(color: Color.black.opacity(0.2), radius: 5)
                     .padding(5)
+                    
+                    VStack (alignment: .leading) {
+                        Text("Physical Appearance").font(.title3).fontWeight(.bold)
+                        HStack {
+                            Text("Height: ").fontWeight(.bold)
+                            Text(String(character.height!))
+                        }
+                        HStack {
+                            Text("Eye Color: ").fontWeight(.bold)
+                            Text(character.eyeColor!)
+                        }
+                        HStack {
+                            Text("Skin Color: ").fontWeight(.bold)
+                            Text(character.skinColor!)
+                        }
+                        HStack {
+                            Text("Hair Color: ").fontWeight(.bold)
+                            Text(character.hairColor!)
+                        }
+                    }
+                    .padding()
+                    .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
+                    .background(Color(.white))
+                    .cornerRadius(5)
+                    .shadow(color: Color.black.opacity(0.2), radius: 5)
+                    .padding(5)
+                    
                     
                     VStack (alignment: .leading) {
                         Text("Vehicles").font(.title3).fontWeight(.bold)

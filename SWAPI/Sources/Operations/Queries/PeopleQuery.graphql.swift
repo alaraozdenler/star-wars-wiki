@@ -7,10 +7,24 @@ public class PeopleQuery: GraphQLQuery {
   public static let operationName: String = "People"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query People { allPeople { __typename people { __typename name filmConnection { __typename films { __typename title } } birthYear homeworld { __typename name } gender height hairColor eyeColor skinColor species { __typename name } starshipConnection { __typename starships { __typename name } } vehicleConnection { __typename vehicles { __typename name } } } } }"#
+      #"query People($after: String, $first: Int) { allPeople(after: $after, first: $first) { __typename people { __typename name filmConnection { __typename films { __typename title } } birthYear homeworld { __typename name } gender height hairColor eyeColor skinColor species { __typename name } starshipConnection { __typename starships { __typename name } } vehicleConnection { __typename vehicles { __typename name } } } pageInfo { __typename hasNextPage endCursor } } }"#
     ))
 
-  public init() {}
+  public var after: GraphQLNullable<String>
+  public var first: GraphQLNullable<Int>
+
+  public init(
+    after: GraphQLNullable<String>,
+    first: GraphQLNullable<Int>
+  ) {
+    self.after = after
+    self.first = first
+  }
+
+  public var __variables: Variables? { [
+    "after": after,
+    "first": first
+  ] }
 
   public struct Data: SWAPI.SelectionSet {
     public let __data: DataDict
@@ -18,7 +32,10 @@ public class PeopleQuery: GraphQLQuery {
 
     public static var __parentType: ApolloAPI.ParentType { SWAPI.Objects.Root }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("allPeople", AllPeople?.self),
+      .field("allPeople", AllPeople?.self, arguments: [
+        "after": .variable("after"),
+        "first": .variable("first")
+      ]),
     ] }
 
     public var allPeople: AllPeople? { __data["allPeople"] }
@@ -34,6 +51,7 @@ public class PeopleQuery: GraphQLQuery {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("people", [Person?]?.self),
+        .field("pageInfo", PageInfo.self),
       ] }
 
       /// A list of all of the objects returned in the connection. This is a convenience
@@ -43,6 +61,8 @@ public class PeopleQuery: GraphQLQuery {
       /// the edge to enable efficient pagination, this shortcut cannot be used, and the
       /// full "{ edges { node } }" version should be used instead.
       public var people: [Person?]? { __data["people"] }
+      /// Information to aid in pagination.
+      public var pageInfo: PageInfo { __data["pageInfo"] }
 
       /// AllPeople.Person
       ///
@@ -246,6 +266,26 @@ public class PeopleQuery: GraphQLQuery {
             public var name: String? { __data["name"] }
           }
         }
+      }
+
+      /// AllPeople.PageInfo
+      ///
+      /// Parent Type: `PageInfo`
+      public struct PageInfo: SWAPI.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { SWAPI.Objects.PageInfo }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("hasNextPage", Bool.self),
+          .field("endCursor", String?.self),
+        ] }
+
+        /// When paginating forwards, are there more items?
+        public var hasNextPage: Bool { __data["hasNextPage"] }
+        /// When paginating forwards, the cursor to continue.
+        public var endCursor: String? { __data["endCursor"] }
       }
     }
   }

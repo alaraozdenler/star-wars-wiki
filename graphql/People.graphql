@@ -1,5 +1,5 @@
-query People {
-  allPeople {
+query People ($after:String, $first: Int) {
+  allPeople (after:$after, first: $first) {
     people {
       name
       filmConnection {
@@ -29,6 +29,10 @@ query People {
           name
         }
       }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
     }
   }
 }
