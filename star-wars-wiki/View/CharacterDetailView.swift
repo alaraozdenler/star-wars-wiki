@@ -37,12 +37,7 @@ struct CharacterDetailView: View {
                             }
                         }
                     }
-                    .padding()
-                    .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
-                    .background(Color(.white))
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.2), radius: 5)
-                    .padding(5)
+                    .modifier(DetailViewModifier())
                     
                     VStack (alignment: .leading) {
                         Text("Physical Appearance").font(.title3).fontWeight(.bold)
@@ -63,13 +58,7 @@ struct CharacterDetailView: View {
                             Text(character.hairColor!)
                         }
                     }
-                    .padding()
-                    .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
-                    .background(Color(.white))
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.2), radius: 5)
-                    .padding(5)
-                    
+                    .modifier(DetailViewModifier())
                     
                     VStack (alignment: .leading) {
                         Text("Vehicles").font(.title3).fontWeight(.bold)
@@ -81,12 +70,7 @@ struct CharacterDetailView: View {
                             }
                         }
                     }
-                    .padding()
-                    .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
-                    .background(Color(.white))
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.2), radius: 5)
-                    .padding(5)
+                    .modifier(DetailViewModifier())
                 }
                 
                 VStack (alignment: .leading) {
@@ -99,12 +83,7 @@ struct CharacterDetailView: View {
                         }
                     }
                 }
-                .padding()
-                .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
-                .background(Color(.white))
-                .cornerRadius(5)
-                .shadow(color: Color.black.opacity(0.2), radius: 5)
-                .padding(5)
+                .modifier(DetailViewModifier())
                 
                 VStack (alignment: .leading) {
                     Text("Films").font(.title3).fontWeight(.bold)
@@ -112,18 +91,24 @@ struct CharacterDetailView: View {
                         Text((film?.title)!)
                     }
                 }
-                .padding()
-                .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
-                .background(Color(.white))
-                .cornerRadius(5)
-                .shadow(color: Color.black.opacity(0.2), radius: 5)
-                .padding(5)
-                
+                .modifier(DetailViewModifier())
                 .navigationTitle(character.name!)
             }
         }
     }
 }
 
+
+struct DetailViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
+            .background(Color(.white))
+            .cornerRadius(5)
+            .shadow(color: Color.black.opacity(0.2), radius: 5)
+            .padding(5)
+    }
+}
 
 
