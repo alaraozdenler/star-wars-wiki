@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct PlanetsView: View {
+    @Bindable var planetViewModel: PlanetViewModel
     var body: some View {
-        NavigationView {
-            Text("Here will be the planets")
-                .navigationTitle("Planets")
+        NavigationStack {
+            List(planetViewModel.planets, id: \.self) { planet in
+                NavigationLink {
+                    PlanetDetailView(planet: planet)
+                } label: {
+                    VStack (alignment: .leading){
+                        Text(planet.name!).font(.headline)
+                        Text(String((planet.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
+                    }
+                }
+            }
+            .navigationTitle("Planets")
         }
     }
 }
 
-#Preview {
-    PlanetsView()
-}

@@ -11,6 +11,7 @@
 		3153CC192BE6E3450013F65A /* SWAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 3153CC182BE6E3450013F65A /* SWAPI */; };
 		3153CC1D2BE6E4730013F65A /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153CC1C2BE6E4730013F65A /* CharacterViewModel.swift */; };
 		315864AD2BE7C78A00AD215D /* StarShipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315864AC2BE7C78A00AD215D /* StarShipDetailView.swift */; };
+		315864B02BE7CAE600AD215D /* PlanetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315864AF2BE7CAE600AD215D /* PlanetViewModel.swift */; };
 		317012C12BE51A1600E37750 /* star_wars_wikiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012C02BE51A1600E37750 /* star_wars_wikiApp.swift */; };
 		317012C32BE51A1600E37750 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317012C22BE51A1600E37750 /* MainView.swift */; };
 		317012C52BE51A1700E37750 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317012C42BE51A1700E37750 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		31EB6B142BE5210A00205F7D /* StarShipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B132BE5210A00205F7D /* StarShipsView.swift */; };
 		31EB6B182BE670A600205F7D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 31EB6B172BE670A600205F7D /* Apollo */; };
 		31EB6B1A2BE670A600205F7D /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 31EB6B192BE670A600205F7D /* ApolloSQLite */; };
+		31FC92132BE7CBEB00CD0C11 /* PlanetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC92122BE7CBEB00CD0C11 /* PlanetDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		3153CC132BE6E2730013F65A /* People.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = People.graphql; sourceTree = "<group>"; };
 		3153CC1C2BE6E4730013F65A /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
 		315864AC2BE7C78A00AD215D /* StarShipDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarShipDetailView.swift; sourceTree = "<group>"; };
+		315864AE2BE7CAC500AD215D /* Planets.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Planets.graphql; sourceTree = "<group>"; };
+		315864AF2BE7CAE600AD215D /* PlanetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetViewModel.swift; sourceTree = "<group>"; };
 		317012BD2BE51A1600E37750 /* star-wars-wiki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "star-wars-wiki.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		317012C02BE51A1600E37750 /* star_wars_wikiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = star_wars_wikiApp.swift; sourceTree = "<group>"; };
 		317012C22BE51A1600E37750 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -59,6 +63,7 @@
 		31EB6B0F2BE520F000205F7D /* CharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersView.swift; sourceTree = "<group>"; };
 		31EB6B112BE520FE00205F7D /* PlanetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetsView.swift; sourceTree = "<group>"; };
 		31EB6B132BE5210A00205F7D /* StarShipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarShipsView.swift; sourceTree = "<group>"; };
+		31FC92122BE7CBEB00CD0C11 /* PlanetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +103,7 @@
 				31EB6B132BE5210A00205F7D /* StarShipsView.swift */,
 				31AA501C2BE6F31B00B00781 /* CharacterDetailView.swift */,
 				315864AC2BE7C78A00AD215D /* StarShipDetailView.swift */,
+				31FC92122BE7CBEB00CD0C11 /* PlanetDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -108,6 +114,7 @@
 				3153CC0B2BE6E1DB0013F65A /* schema.graphqls */,
 				3153CC132BE6E2730013F65A /* People.graphql */,
 				31A4F9C22BE7C49800BE9AAA /* StarShips.graphql */,
+				315864AE2BE7CAC500AD215D /* Planets.graphql */,
 			);
 			path = graphql;
 			sourceTree = "<group>";
@@ -164,6 +171,7 @@
 			children = (
 				3153CC1C2BE6E4730013F65A /* CharacterViewModel.swift */,
 				31A4F9C32BE7C50700BE9AAA /* StarShipViewModel.swift */,
+				315864AF2BE7CAE600AD215D /* PlanetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -314,9 +322,11 @@
 				3153CC1D2BE6E4730013F65A /* CharacterViewModel.swift in Sources */,
 				315864AD2BE7C78A00AD215D /* StarShipDetailView.swift in Sources */,
 				31A4F9C42BE7C50700BE9AAA /* StarShipViewModel.swift in Sources */,
+				315864B02BE7CAE600AD215D /* PlanetViewModel.swift in Sources */,
 				31EB6B102BE520F000205F7D /* CharactersView.swift in Sources */,
 				31EB6B142BE5210A00205F7D /* StarShipsView.swift in Sources */,
 				31AA501D2BE6F31B00B00781 /* CharacterDetailView.swift in Sources */,
+				31FC92132BE7CBEB00CD0C11 /* PlanetDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

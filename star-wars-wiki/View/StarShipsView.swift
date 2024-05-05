@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct StarShipsView: View {
-    @Bindable var starShipViewModel: StarShipViewModel
+    @Bindable var starshipViewModel: StarShipViewModel
     var body: some View {
         NavigationStack {
-            List(starShipViewModel.starShips, id: \.self) { starShip in
+            List(starshipViewModel.starships, id: \.self) { starship in
                 NavigationLink {
-                    StarShipDetailView(starShip: starShip)
+                    StarShipDetailView(starship: starship)
                 } label: {
                     VStack (alignment: .leading){
-                        Text(starShip.name!).font(.headline)
-                        Text(String((starShip.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
+                        Text(starship.name!).font(.headline)
+                        Text(String((starship.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
                     }
                 }
             }
-            .navigationTitle("Star Ships")
+            .navigationTitle("Starships")
         }
     }
 }

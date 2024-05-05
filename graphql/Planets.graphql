@@ -1,0 +1,24 @@
+query Planets {
+  allPlanets {
+    planets {
+      name
+      population
+      diameter
+      filmConnection {
+        films {
+          title
+        }
+      }
+      gravity
+      orbitalPeriod
+      rotationPeriod
+      surfaceWater
+      terrains
+      residentConnection {
+        residents {
+          name
+        }
+      }
+    }
+  }
+}

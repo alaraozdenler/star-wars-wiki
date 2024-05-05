@@ -11,13 +11,13 @@ import SWAPI
 
 
 @Observable class StarShipViewModel {
-    var starShips: [StarShipsQuery.Data.AllStarships.Starship] = []
+    var starships: [StarShipsQuery.Data.AllStarships.Starship] = []
     
-    init(starShips: [StarShipsQuery.Data.AllStarships.Starship]) {
+    init(starships: [StarShipsQuery.Data.AllStarships.Starship]) {
         Network.shared.apollo.fetch(query: StarShipsQuery()) {
             result in
             guard let data = try? result.get().data else { return }
-            self.starShips = data.allStarships?.starships as! [StarShipsQuery.Data.AllStarships.Starship]
+            self.starships = data.allStarships?.starships as! [StarShipsQuery.Data.AllStarships.Starship]
         }
     }
 }
