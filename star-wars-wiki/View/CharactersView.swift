@@ -13,7 +13,7 @@ struct CharactersView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(characterViewModel.characters, id: \.self) { character in
+                ForEach(characterViewModel.filteredCharacters, id: \.self) { character in
                     NavigationLink {
                         CharacterDetailView(character: character)
                     } label: {
@@ -32,7 +32,8 @@ struct CharactersView: View {
                                 Text(String((character.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
                             }
                         }
-                    }.swipeActions {
+                    }
+                    .swipeActions {
                         Button() {
                             //Add character to favorites
                             if characterViewModel.favoriteCharacters.contains(character.name!) {
@@ -42,11 +43,12 @@ struct CharactersView: View {
                             }
                         } label: {
                             Label("", systemImage: "star")
-                        }.tint(.yellow)
+                        }
+                        .tint(.yellow)
                     }
                     //Load the next page when scrolled down
                     .onAppear() {
-                        if (characterViewModel.characters.last == character){
+                        if (characterViewModel.filteredCharacters.last == character){
                             Task {
                                 do {
                                     if (await characterViewModel.pager.canLoadNext) {
@@ -58,6 +60,18 @@ struct CharactersView: View {
                                 }
                             }
                         }
+                    }
+                }
+            }
+            //button to filter favorites
+            .toolbar {
+                Button {
+                    characterViewModel.sortFavs()
+                } label: {
+                    if characterViewModel.showingFavs {
+                        Label("", systemImage: "star.fill")
+                    } else {
+                        Label("", systemImage: "star")
                     }
                 }
             }

@@ -17,6 +17,14 @@ import os
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<PeopleQuery, PeopleQuery>>
     private let key = "favChars"
+    var showingFavs = false
+    var filteredCharacters: [PeopleQuery.Data.AllPeople.Person] {
+        if showingFavs {
+            return characters.filter { favoriteCharacters.contains($0.name!) }
+        } else {
+            return characters
+        }
+    }
     
     init(characters: [PeopleQuery.Data.AllPeople.Person]) {
         let initialQuery = PeopleQuery(after: nil, first: 10)
@@ -67,5 +75,8 @@ import os
     func removeFavorite(character: String) {
         favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character)!)
         UserDefaults.standard.set(favoriteCharacters, forKey: key)
+    }
+    func sortFavs() {
+        showingFavs.toggle()
     }
 }

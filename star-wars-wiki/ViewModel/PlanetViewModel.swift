@@ -17,6 +17,14 @@ import os
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<PlanetsQuery, PlanetsQuery>>
     private var key = "favPlanet"
+    var showingFavs = false
+    var filteredPlanets: [PlanetsQuery.Data.AllPlanets.Planet] {
+        if showingFavs {
+            return planets.filter { favoritePlanets.contains($0.name!) }
+        } else {
+            return planets
+        }
+    }
     
     init(planets: [PlanetsQuery.Data.AllPlanets.Planet]) {
         let initialQuery = PlanetsQuery(after: nil, first: 10)
@@ -67,6 +75,9 @@ import os
     func removeFavorite(planet: String) {
         favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet)!)
         UserDefaults.standard.set(favoritePlanets, forKey: key)
+    }
+    func sortFavs() {
+        showingFavs.toggle()
     }
 }
 

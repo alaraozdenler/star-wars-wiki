@@ -17,6 +17,14 @@ import os
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<StarShipsQuery, StarShipsQuery>>
     private let key = "favShips"
+    var showingFavs = false
+    var filteredStarships: [StarShipsQuery.Data.AllStarships.Starship] {
+        if showingFavs {
+            return starships.filter { favoriteStarships.contains($0.name!) }
+        } else {
+            return starships
+        }
+    }
     
     init(starships: [StarShipsQuery.Data.AllStarships.Starship]) {
         let initialQuery = StarShipsQuery(after: nil, first: 10)
@@ -67,5 +75,8 @@ import os
     func removeFavorite(ship: String) {
         favoriteStarships.remove(at: favoriteStarships.firstIndex(of: ship)!)
         UserDefaults.standard.set(favoriteStarships, forKey: key)
+    }
+    func sortFavs() {
+        showingFavs.toggle()
     }
 }

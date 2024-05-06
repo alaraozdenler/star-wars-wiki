@@ -12,7 +12,7 @@ struct PlanetsView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(planetViewModel.planets, id: \.self) { planet in
+                ForEach(planetViewModel.filteredPlanets, id: \.self) { planet in
                     NavigationLink {
                         PlanetDetailView(planet: planet)
                     } label: {
@@ -46,7 +46,7 @@ struct PlanetsView: View {
                     }
                     //Load the next page when scrolled down
                     .onAppear() {
-                        if (planetViewModel.planets.last == planet) {
+                        if (planetViewModel.filteredPlanets.last == planet) {
                             Task {
                                 do {
                                     if (await planetViewModel.pager.canLoadNext) {
@@ -56,13 +56,24 @@ struct PlanetsView: View {
                                 catch {
                                     planetViewModel.logger.log("\(error.localizedDescription)")
                                 }
-                                
                             }
                         }
                     }
-                    .navigationTitle("Planets")
                 }
             }
+            //button to filter favorites
+            .toolbar {
+                Button {
+                    planetViewModel.sortFavs()
+                } label: {
+                    if planetViewModel.showingFavs {
+                        Label("", systemImage: "star.fill")
+                    } else {
+                        Label("", systemImage: "star")
+                    }
+                }
+            }
+            .navigationTitle("Planets")
             .onAppear() {
                 Task {
                     await planetViewModel.pager.fetch()
@@ -71,3 +82,4 @@ struct PlanetsView: View {
         }
     }
 }
+

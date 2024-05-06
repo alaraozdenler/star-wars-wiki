@@ -13,7 +13,7 @@ struct StarShipsView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(starshipViewModel.starships, id: \.self) { starship in
+                ForEach(starshipViewModel.filteredStarships, id: \.self) { starship in
                     NavigationLink {
                         StarShipDetailView(starship: starship)
                     } label: {
@@ -41,14 +41,14 @@ struct StarShipsView: View {
                             } else {
                                 starshipViewModel.addFavorite(ship: starship.name!)
                             }
-                            
                         } label: {
                             Label("", systemImage: "star")
-                        }.tint(.yellow)
+                        }
+                        .tint(.yellow)
                     }
                     //Load the next page when scrolled down
                     .onAppear() {
-                        if (starshipViewModel.starships.last == starship) {
+                        if (starshipViewModel.filteredStarships.last == starship) {
                             Task {
                                 do {
                                     if (await starshipViewModel.pager.canLoadNext) {
@@ -62,8 +62,20 @@ struct StarShipsView: View {
                         }
                     }
                 }
-                .navigationTitle("Starships")
             }
+            //button to filter favorites
+            .toolbar {
+                Button {
+                    starshipViewModel.sortFavs()
+                } label: {
+                    if starshipViewModel.showingFavs {
+                        Label("", systemImage: "star.fill")
+                    } else {
+                        Label("", systemImage: "star")
+                    }
+                }
+            }
+            .navigationTitle("Starships")
             .onAppear() {
                 Task {
                     await starshipViewModel.pager.fetch()
