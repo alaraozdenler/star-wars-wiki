@@ -13,9 +13,11 @@ import os
 
 @Observable class StarShipViewModel{
     var starships: [StarShipsQuery.Data.AllStarships.Starship] = []
+    var favoriteStarships: [String] = []
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<StarShipsQuery, StarShipsQuery>>
-   
+    private let key = "favShips"
+    
     init(starships: [StarShipsQuery.Data.AllStarships.Starship]) {
         let initialQuery = StarShipsQuery(after: nil, first: 10)
         pager = AsyncGraphQLQueryPager(
@@ -52,9 +54,18 @@ import os
                 self.logger.warning("\(error.localizedDescription)")
                 break
             }
-            
         }
-
+        if (UserDefaults.standard.array(forKey: key) != nil) {
+            favoriteStarships = UserDefaults.standard.array(forKey: key) as! [String]
+        }
+        UserDefaults.standard.set(favoriteStarships, forKey: key)
+    }
+    func addFavorite(ship: String) {
+        favoriteStarships.append(ship)
+        UserDefaults.standard.set(favoriteStarships, forKey: key)
+    }
+    func removeFavorite(ship: String) {
+        favoriteStarships.remove(at: favoriteStarships.firstIndex(of: ship)!)
+        UserDefaults.standard.set(favoriteStarships, forKey: key)
     }
 }
-

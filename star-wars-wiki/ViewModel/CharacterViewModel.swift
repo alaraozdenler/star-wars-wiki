@@ -13,9 +13,11 @@ import os
 
 @Observable class CharacterViewModel {
     var characters: [PeopleQuery.Data.AllPeople.Person] = []
+    var favoriteCharacters: [String] = []
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<PeopleQuery, PeopleQuery>>
-   
+    private let key = "favChars"
+    
     init(characters: [PeopleQuery.Data.AllPeople.Person]) {
         let initialQuery = PeopleQuery(after: nil, first: 10)
         pager = AsyncGraphQLQueryPager(
@@ -53,5 +55,17 @@ import os
                 break
             }
         }
+        if (UserDefaults.standard.array(forKey: key) != nil) {
+            favoriteCharacters = UserDefaults.standard.array(forKey: key) as! [String]
+        }
+        UserDefaults.standard.set(favoriteCharacters, forKey: key)
+    }
+    func addFavorite(character: String) {
+        favoriteCharacters.append(character)
+        UserDefaults.standard.set(favoriteCharacters, forKey: key)
+    }
+    func removeFavorite(character: String) {
+        favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character)!)
+        UserDefaults.standard.set(favoriteCharacters, forKey: key)
     }
 }

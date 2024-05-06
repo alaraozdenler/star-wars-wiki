@@ -17,10 +17,32 @@ struct CharactersView: View {
                     NavigationLink {
                         CharacterDetailView(character: character)
                     } label: {
-                        VStack (alignment: .leading){
-                            Text(character.name!).font(.headline)
-                            Text(String((character.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
+                        HStack {
+                            //highlight if character is a favorite
+                            if characterViewModel.favoriteCharacters.contains(character.name!) {
+                                Image(systemName: "star.fill").font(.caption)
+                                    .foregroundStyle(.yellow)
+                                    .background() {
+                                        Circle().fill(.white).frame(width: 20, height: 20)
+                                            .shadow(color: .yellow,radius: 5 )
+                                    }
+                            }
+                            VStack (alignment: .leading){
+                                Text(character.name!).font(.headline)
+                                Text(String((character.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
+                            }
                         }
+                    }.swipeActions {
+                        Button() {
+                            //Add character to favorites
+                            if characterViewModel.favoriteCharacters.contains(character.name!) {
+                                characterViewModel.removeFavorite(character: character.name!)
+                            } else {
+                                characterViewModel.addFavorite(character: character.name!)
+                            }
+                        } label: {
+                            Label("", systemImage: "star")
+                        }.tint(.yellow)
                     }
                     //Load the next page when scrolled down
                     .onAppear() {
@@ -34,7 +56,6 @@ struct CharactersView: View {
                                 catch {
                                     characterViewModel.logger.log("\(error.localizedDescription)")
                                 }
-                                
                             }
                         }
                     }

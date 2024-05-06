@@ -16,10 +16,33 @@ struct PlanetsView: View {
                     NavigationLink {
                         PlanetDetailView(planet: planet)
                     } label: {
-                        VStack (alignment: .leading){
-                            Text(planet.name!).font(.headline)
-                            Text(String((planet.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
+                        HStack {
+                            //highlight if planet is a favorite
+                            if planetViewModel.favoritePlanets.contains(planet.name!) {
+                                Image(systemName: "star.fill").font(.caption)
+                                    .foregroundStyle(.yellow)
+                                    .background() {
+                                        Circle().fill(.white).frame(width: 20, height: 20)
+                                            .shadow(color: .yellow,radius: 5 )
+                                    }
+                            }
+                            VStack (alignment: .leading){
+                                Text(planet.name!).font(.headline)
+                                Text(String((planet.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
+                            }
                         }
+                    }
+                    .swipeActions {
+                        Button() {
+                            //Add planet to favorites
+                            if planetViewModel.favoritePlanets.contains(planet.name!) {
+                                planetViewModel.removeFavorite(planet: planet.name!)
+                            } else {
+                                planetViewModel.addFavorite(planet: planet.name!)
+                            }
+                        } label: {
+                            Label("", systemImage: "star")
+                        }.tint(.yellow)
                     }
                     //Load the next page when scrolled down
                     .onAppear() {
@@ -47,5 +70,4 @@ struct PlanetsView: View {
             }
         }
     }
-    
 }

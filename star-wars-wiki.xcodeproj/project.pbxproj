@@ -19,6 +19,7 @@
 		31A4F9C42BE7C50700BE9AAA /* StarShipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F9C32BE7C50700BE9AAA /* StarShipViewModel.swift */; };
 		31AA501D2BE6F31B00B00781 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA501C2BE6F31B00B00781 /* CharacterDetailView.swift */; };
 		31C9A2BC2BE7F90A00EDCD14 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C9A2BB2BE7F90A00EDCD14 /* Network.swift */; };
+		31C9A2C12BE8D04000EDCD14 /* DetailViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C9A2C02BE8D04000EDCD14 /* DetailViewModifier.swift */; };
 		31EB6B102BE520F000205F7D /* CharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B0F2BE520F000205F7D /* CharactersView.swift */; };
 		31EB6B122BE520FE00205F7D /* PlanetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B112BE520FE00205F7D /* PlanetsView.swift */; };
 		31EB6B142BE5210A00205F7D /* StarShipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB6B132BE5210A00205F7D /* StarShipsView.swift */; };
@@ -64,6 +65,7 @@
 		31A4F9C32BE7C50700BE9AAA /* StarShipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarShipViewModel.swift; sourceTree = "<group>"; };
 		31AA501C2BE6F31B00B00781 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		31C9A2BB2BE7F90A00EDCD14 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		31C9A2C02BE8D04000EDCD14 /* DetailViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModifier.swift; sourceTree = "<group>"; };
 		31EB6B0F2BE520F000205F7D /* CharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersView.swift; sourceTree = "<group>"; };
 		31EB6B112BE520FE00205F7D /* PlanetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetsView.swift; sourceTree = "<group>"; };
 		31EB6B132BE5210A00205F7D /* StarShipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarShipsView.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				31AA501C2BE6F31B00B00781 /* CharacterDetailView.swift */,
 				315864AC2BE7C78A00AD215D /* StarShipDetailView.swift */,
 				31FC92122BE7CBEB00CD0C11 /* PlanetDetailView.swift */,
+				31C9A2C02BE8D04000EDCD14 /* DetailViewModifier.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				317012C12BE51A1600E37750 /* star_wars_wikiApp.swift in Sources */,
 				31C9A2BC2BE7F90A00EDCD14 /* Network.swift in Sources */,
 				31EB6B122BE520FE00205F7D /* PlanetsView.swift in Sources */,
+				31C9A2C12BE8D04000EDCD14 /* DetailViewModifier.swift in Sources */,
 				3153CC1D2BE6E4730013F65A /* CharacterViewModel.swift in Sources */,
 				315864AD2BE7C78A00AD215D /* StarShipDetailView.swift in Sources */,
 				31A4F9C42BE7C50700BE9AAA /* StarShipViewModel.swift in Sources */,

@@ -13,9 +13,11 @@ import os
 
 @Observable class PlanetViewModel {
     var planets: [PlanetsQuery.Data.AllPlanets.Planet] = []
+    var favoritePlanets: [String] = []
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<PlanetsQuery, PlanetsQuery>>
-   
+    private var key = "favPlanet"
+    
     init(planets: [PlanetsQuery.Data.AllPlanets.Planet]) {
         let initialQuery = PlanetsQuery(after: nil, first: 10)
         pager = AsyncGraphQLQueryPager(
@@ -53,5 +55,18 @@ import os
                 break
             }
         }
+        if (UserDefaults.standard.array(forKey: key) != nil) {
+            favoritePlanets = UserDefaults.standard.array(forKey: key) as! [String]
+        }
+        UserDefaults.standard.set(favoritePlanets, forKey: key)
+    }
+    func addFavorite(planet: String) {
+        favoritePlanets.append(planet)
+        UserDefaults.standard.set(favoritePlanets, forKey: key)
+    }
+    func removeFavorite(planet: String) {
+        favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet)!)
+        UserDefaults.standard.set(favoritePlanets, forKey: key)
     }
 }
+

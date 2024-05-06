@@ -17,11 +17,35 @@ struct StarShipsView: View {
                     NavigationLink {
                         StarShipDetailView(starship: starship)
                     } label: {
-                        VStack (alignment: .leading){
-                            Text(starship.name!).font(.headline)
-                            Text(String((starship.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
+                        HStack {
+                            //highlight if starship is a favorite
+                            if starshipViewModel.favoriteStarships.contains(starship.name!) {
+                                Image(systemName: "star.fill").font(.caption)
+                                    .foregroundStyle(.yellow)
+                                    .background() {
+                                        Circle().fill(.white).frame(width: 20, height: 20)
+                                            .shadow(color: .yellow,radius: 5 )
+                                    }
+                            }
+                            VStack (alignment: .leading){
+                                Text(starship.name!).font(.headline)
+                                Text(String((starship.filmConnection?.films!.endIndex)!) + " films").font(.subheadline)
+                            }
                         }
-                    } 
+                    }
+                    .swipeActions {
+                        Button() {
+                            //Add starship to favorites
+                            if starshipViewModel.favoriteStarships.contains(starship.name!) {
+                                starshipViewModel.removeFavorite(ship: starship.name!)
+                            } else {
+                                starshipViewModel.addFavorite(ship: starship.name!)
+                            }
+                            
+                        } label: {
+                            Label("", systemImage: "star")
+                        }.tint(.yellow)
+                    }
                     //Load the next page when scrolled down
                     .onAppear() {
                         if (starshipViewModel.starships.last == starship) {
@@ -34,13 +58,13 @@ struct StarShipsView: View {
                                 catch {
                                     starshipViewModel.logger.log("\(error.localizedDescription)")
                                 }
-                                
                             }
                         }
                     }
                 }
                 .navigationTitle("Starships")
-            }.onAppear() {
+            }
+            .onAppear() {
                 Task {
                     await starshipViewModel.pager.fetch()
                 }
