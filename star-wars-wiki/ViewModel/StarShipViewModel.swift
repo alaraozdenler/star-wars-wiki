@@ -20,7 +20,7 @@ import os
     private let key = "favShips"
     var showingFavorites = false
     init(starships: [StarShipsQuery.Data.AllStarships.Starship]) {
-        let initialQuery = StarShipsQuery(after: nil, first: 8)
+        let initialQuery = StarShipsQuery(after: nil, first: 11)
         pager = AsyncGraphQLQueryPager(
             client: Network.shared.apollo,
             initialQuery: initialQuery,
@@ -33,7 +33,7 @@ import os
             pageResolver: { page, paginationDirection in
                 switch paginationDirection {
                 case .next:
-                    return StarShipsQuery(after: page.endCursor ?? .none, first: 8)
+                    return StarShipsQuery(after: page.endCursor ?? .none, first: 11)
                 case .previous:
                     return nil
                 }
@@ -79,24 +79,24 @@ import os
     }
     
     func addFavorite(starship: StarShipsQuery.Data.AllStarships.Starship) {
-        favoriteStarships.append(starship.name!)
+        favoriteStarships.append(starship.id)
         UserDefaults.standard.set(favoriteStarships, forKey: key)
     }
     
     func removeFavorite(starship: StarShipsQuery.Data.AllStarships.Starship) {
         if hasFavorite(starship: starship) {
-            favoriteStarships.remove(at: favoriteStarships.firstIndex(of: starship.name!)!)
+            favoriteStarships.remove(at: favoriteStarships.firstIndex(of: starship.id)!)
             UserDefaults.standard.set(favoriteStarships, forKey: key)
         }
     }
     
     func hasFavorite(starship: StarShipsQuery.Data.AllStarships.Starship) -> Bool {
-        return favoriteStarships.contains(starship.name!)
+        return favoriteStarships.contains(starship.id)
     }
     
     func toggleFavorite(starship: StarShipsQuery.Data.AllStarships.Starship) {
         if hasFavorite(starship: starship) {
-            favoriteStarships.remove(at: favoriteStarships.firstIndex(of: starship.name!)!)
+            favoriteStarships.remove(at: favoriteStarships.firstIndex(of: starship.id)!)
             UserDefaults.standard.set(favoriteStarships, forKey: key)
         } else {
             addFavorite(starship: starship)

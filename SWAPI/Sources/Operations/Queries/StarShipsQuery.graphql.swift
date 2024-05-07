@@ -7,7 +7,7 @@ public class StarShipsQuery: GraphQLQuery {
   public static let operationName: String = "StarShips"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query StarShips($after: String, $first: Int) { allStarships(after: $after, first: $first) { __typename starships { __typename name model passengers pilotConnection { __typename pilots { __typename name } } filmConnection { __typename films { __typename title } } starshipClass hyperdriveRating maxAtmospheringSpeed crew } pageInfo { __typename hasNextPage endCursor } } }"#
+      #"query StarShips($after: String, $first: Int) { allStarships(after: $after, first: $first) { __typename starships { __typename name model passengers pilotConnection { __typename pilots { __typename name } } filmConnection { __typename films { __typename title } } starshipClass hyperdriveRating maxAtmospheringSpeed crew id } pageInfo { __typename hasNextPage endCursor } } }"#
     ))
 
   public var after: GraphQLNullable<String>
@@ -83,6 +83,7 @@ public class StarShipsQuery: GraphQLQuery {
           .field("hyperdriveRating", Double?.self),
           .field("maxAtmospheringSpeed", Int?.self),
           .field("crew", String?.self),
+          .field("id", SWAPI.ID.self),
         ] }
 
         /// The name of this starship. The common name, such as "Death Star".
@@ -104,6 +105,8 @@ public class StarShipsQuery: GraphQLQuery {
         public var maxAtmospheringSpeed: Int? { __data["maxAtmospheringSpeed"] }
         /// The number of personnel needed to run or pilot this starship.
         public var crew: String? { __data["crew"] }
+        /// The ID of an object
+        public var id: SWAPI.ID { __data["id"] }
 
         /// AllStarships.Starship.PilotConnection
         ///

@@ -18,6 +18,7 @@ query StarShips ($after:String, $first: Int) {
       hyperdriveRating
       maxAtmospheringSpeed
       crew
+      id
     }
     pageInfo {
       hasNextPage

@@ -19,6 +19,7 @@ query Planets ($after:String, $first: Int) {
           name
         }
       }
+      id
     }
     pageInfo {
       hasNextPage

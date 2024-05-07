@@ -21,7 +21,7 @@ import os
     var showingFavorites = false
     
     init(characters: [PeopleQuery.Data.AllPeople.Person]) {
-        let initialQuery = PeopleQuery(after: nil, first: 8)
+        let initialQuery = PeopleQuery(after: nil, first: 11)
         pager = AsyncGraphQLQueryPager(
             client: Network.shared.apollo,
             initialQuery: initialQuery,
@@ -34,7 +34,7 @@ import os
             pageResolver: { page, paginationDirection in
                 switch paginationDirection {
                 case .next:
-                    return PeopleQuery(after: page.endCursor ?? .none, first: 8)
+                    return PeopleQuery(after: page.endCursor ?? .none, first: 11)
                 case .previous:
                     return nil
                 }
@@ -82,24 +82,24 @@ import os
     }
     
     func addFavorite(character: PeopleQuery.Data.AllPeople.Person) {
-        favoriteCharacters.append(character.name!)
+        favoriteCharacters.append(character.id)
         UserDefaults.standard.set(favoriteCharacters, forKey: key)
     }
     
     func removeFavorite(character: PeopleQuery.Data.AllPeople.Person) {
         if hasFavorite(character: character) {
-            favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character.name!)!)
+            favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character.id)!)
             UserDefaults.standard.set(favoriteCharacters, forKey: key)
         }
     }
     
     func hasFavorite(character: PeopleQuery.Data.AllPeople.Person) -> Bool {
-        return favoriteCharacters.contains(character.name!)
+        return favoriteCharacters.contains(character.id)
     }
     
     func toggleFavorite(character: PeopleQuery.Data.AllPeople.Person) {
         if hasFavorite(character: character) {
-            favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character.name!)!)
+            favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character.id)!)
             UserDefaults.standard.set(favoriteCharacters, forKey: key)
         } else {
             addFavorite(character: character)

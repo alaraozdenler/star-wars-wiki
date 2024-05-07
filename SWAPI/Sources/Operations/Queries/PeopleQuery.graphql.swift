@@ -7,7 +7,7 @@ public class PeopleQuery: GraphQLQuery {
   public static let operationName: String = "People"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query People($after: String, $first: Int) { allPeople(after: $after, first: $first) { __typename people { __typename name filmConnection { __typename films { __typename title } } birthYear homeworld { __typename name } gender height hairColor eyeColor skinColor species { __typename name } starshipConnection { __typename starships { __typename name } } vehicleConnection { __typename vehicles { __typename name } } } pageInfo { __typename hasNextPage endCursor } } }"#
+      #"query People($after: String, $first: Int) { allPeople(after: $after, first: $first) { __typename people { __typename name filmConnection { __typename films { __typename title } } birthYear homeworld { __typename name } gender height hairColor eyeColor skinColor species { __typename name } starshipConnection { __typename starships { __typename name } } vehicleConnection { __typename vehicles { __typename name } } id } pageInfo { __typename hasNextPage endCursor } } }"#
     ))
 
   public var after: GraphQLNullable<String>
@@ -86,6 +86,7 @@ public class PeopleQuery: GraphQLQuery {
           .field("species", Species?.self),
           .field("starshipConnection", StarshipConnection?.self),
           .field("vehicleConnection", VehicleConnection?.self),
+          .field("id", SWAPI.ID.self),
         ] }
 
         /// The name of this person.
@@ -114,6 +115,8 @@ public class PeopleQuery: GraphQLQuery {
         public var species: Species? { __data["species"] }
         public var starshipConnection: StarshipConnection? { __data["starshipConnection"] }
         public var vehicleConnection: VehicleConnection? { __data["vehicleConnection"] }
+        /// The ID of an object
+        public var id: SWAPI.ID { __data["id"] }
 
         /// AllPeople.Person.FilmConnection
         ///

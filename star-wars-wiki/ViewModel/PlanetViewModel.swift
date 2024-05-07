@@ -21,7 +21,7 @@ import os
     var showingFavorites = false
     
     init(planets: [PlanetsQuery.Data.AllPlanets.Planet]) {
-        let initialQuery = PlanetsQuery(after: nil, first: 8)
+        let initialQuery = PlanetsQuery(after: nil, first: 11)
         pager = AsyncGraphQLQueryPager(
             client: Network.shared.apollo,
             initialQuery: initialQuery,
@@ -34,7 +34,7 @@ import os
             pageResolver: { page, paginationDirection in
                 switch paginationDirection {
                 case .next:
-                    return PlanetsQuery(after: page.endCursor ?? .none, first: 8)
+                    return PlanetsQuery(after: page.endCursor ?? .none, first: 11)
                 case .previous:
                     return nil
                 }
@@ -81,24 +81,24 @@ import os
     }
     
     func addFavorite(planet: PlanetsQuery.Data.AllPlanets.Planet) {
-        favoritePlanets.append(planet.name!)
+        favoritePlanets.append(planet.id)
         UserDefaults.standard.set(favoritePlanets, forKey: key)
     }
     
     func removeFavorite(planet: PlanetsQuery.Data.AllPlanets.Planet) {
         if hasFavorite(planet: planet) {
-            favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet.name!)!)
+            favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet.id)!)
             UserDefaults.standard.set(favoritePlanets, forKey: key)
         }
     }
     
     func hasFavorite(planet: PlanetsQuery.Data.AllPlanets.Planet) -> Bool {
-        return favoritePlanets.contains(planet.name!)
+        return favoritePlanets.contains(planet.id)
     }
     
     func toggleFavorite(planet: PlanetsQuery.Data.AllPlanets.Planet) {
         if hasFavorite(planet: planet) {
-            favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet.name!)!)
+            favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet.id)!)
             UserDefaults.standard.set(favoritePlanets, forKey: key)
         } else {
             addFavorite(planet: planet)

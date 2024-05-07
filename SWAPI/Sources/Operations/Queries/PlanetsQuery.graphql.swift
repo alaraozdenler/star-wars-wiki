@@ -7,7 +7,7 @@ public class PlanetsQuery: GraphQLQuery {
   public static let operationName: String = "Planets"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query Planets($after: String, $first: Int) { allPlanets(after: $after, first: $first) { __typename planets { __typename name population diameter filmConnection { __typename films { __typename title } } gravity orbitalPeriod rotationPeriod surfaceWater terrains residentConnection { __typename residents { __typename name } } } pageInfo { __typename hasNextPage endCursor } } }"#
+      #"query Planets($after: String, $first: Int) { allPlanets(after: $after, first: $first) { __typename planets { __typename name population diameter filmConnection { __typename films { __typename title } } gravity orbitalPeriod rotationPeriod surfaceWater terrains residentConnection { __typename residents { __typename name } } id } pageInfo { __typename hasNextPage endCursor } } }"#
     ))
 
   public var after: GraphQLNullable<String>
@@ -84,6 +84,7 @@ public class PlanetsQuery: GraphQLQuery {
           .field("surfaceWater", Double?.self),
           .field("terrains", [String?]?.self),
           .field("residentConnection", ResidentConnection?.self),
+          .field("id", SWAPI.ID.self),
         ] }
 
         /// The name of this planet.
@@ -108,6 +109,8 @@ public class PlanetsQuery: GraphQLQuery {
         /// The terrains of this planet.
         public var terrains: [String?]? { __data["terrains"] }
         public var residentConnection: ResidentConnection? { __data["residentConnection"] }
+        /// The ID of an object
+        public var id: SWAPI.ID { __data["id"] }
 
         /// AllPlanets.Planet.FilmConnection
         ///
