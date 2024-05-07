@@ -12,13 +12,13 @@ struct PlanetsView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(planetViewModel.filteredPlanets, id: \.self) { planet in
+                ForEach(planetViewModel.getPlanets(), id: \.self) { planet in
                     NavigationLink {
                         PlanetDetailView(planet: planet)
                     } label: {
                         HStack {
-                            //highlight if planet is a favorite
-                            if planetViewModel.favoritePlanets.contains(planet.name!) {
+                            //Highlight if planet is a favorite
+                            if planetViewModel.hasFavorite(planet: planet) {
                                 Image(systemName: "star.fill").font(.caption)
                                     .foregroundStyle(.yellow)
                                     .background() {
@@ -34,39 +34,27 @@ struct PlanetsView: View {
                     }
                     .swipeActions {
                         Button() {
-                            //Add planet to favorites
-                            if planetViewModel.favoritePlanets.contains(planet.name!) {
-                                planetViewModel.removeFavorite(planet: planet.name!)
-                            } else {
-                                planetViewModel.addFavorite(planet: planet.name!)
-                            }
+                            //Add planet to favorites or remove if it is already in favorites
+                            planetViewModel.toggleFavorite(planet: planet)
                         } label: {
                             Label("", systemImage: "star")
-                        }.tint(.yellow)
+                        }
+                        .tint(.yellow)
                     }
-                    //Load the next page when scrolled down
+                    //Load the next page when scrolled all the way down to the last item on the list
                     .onAppear() {
-                        if (planetViewModel.filteredPlanets.last == planet) {
-                            Task {
-                                do {
-                                    if (await planetViewModel.pager.canLoadNext) {
-                                        try await planetViewModel.pager.loadNext()
-                                    }
-                                }
-                                catch {
-                                    planetViewModel.logger.log("\(error.localizedDescription)")
-                                }
-                            }
+                        if (!planetViewModel.loadedAllPages && planetViewModel.planets.last == planet){
+                            Task { await planetViewModel.loadNextPage() }
                         }
                     }
                 }
             }
-            //button to filter favorites
+            //Button to filter favorites
             .toolbar {
                 Button {
-                    planetViewModel.sortFavs()
+                    planetViewModel.filterFavorites()
                 } label: {
-                    if planetViewModel.showingFavs {
+                    if planetViewModel.showingFavorites {
                         Label("", systemImage: "star.fill")
                     } else {
                         Label("", systemImage: "star")
@@ -75,9 +63,7 @@ struct PlanetsView: View {
             }
             .navigationTitle("Planets")
             .onAppear() {
-                Task {
-                    await planetViewModel.pager.fetch()
-                }
+                Task { await planetViewModel.loadInitialPage() }
             }
         }
     }

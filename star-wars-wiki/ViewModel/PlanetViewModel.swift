@@ -16,18 +16,12 @@ import os
     var favoritePlanets: [String] = []
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<PlanetsQuery, PlanetsQuery>>
-    private var key = "favPlanet"
-    var showingFavs = false
-    var filteredPlanets: [PlanetsQuery.Data.AllPlanets.Planet] {
-        if showingFavs {
-            return planets.filter { favoritePlanets.contains($0.name!) }
-        } else {
-            return planets
-        }
-    }
+    var loadedAllPages = false
+    private let key = "favPlanets"
+    var showingFavorites = false
     
     init(planets: [PlanetsQuery.Data.AllPlanets.Planet]) {
-        let initialQuery = PlanetsQuery(after: nil, first: 10)
+        let initialQuery = PlanetsQuery(after: nil, first: 8)
         pager = AsyncGraphQLQueryPager(
             client: Network.shared.apollo,
             initialQuery: initialQuery,
@@ -40,7 +34,7 @@ import os
             pageResolver: { page, paginationDirection in
                 switch paginationDirection {
                 case .next:
-                    return PlanetsQuery(after: page.endCursor ?? .none, first: 10)
+                    return PlanetsQuery(after: page.endCursor ?? .none, first: 8)
                 case .previous:
                     return nil
                 }
@@ -59,7 +53,7 @@ import os
                     self.planets += nextPages[nextPages.endIndex - 1].allPlanets?.planets as! [PlanetsQuery.Data.AllPlanets.Planet]
                 }
             case .failure(let error):
-                self.logger.warning("\(error.localizedDescription)")
+                self.logger.warning("\(error)")
                 break
             }
         }
@@ -68,16 +62,60 @@ import os
         }
         UserDefaults.standard.set(favoritePlanets, forKey: key)
     }
-    func addFavorite(planet: String) {
-        favoritePlanets.append(planet)
+    
+    func loadInitialPage() async {
+        await pager.fetch()
+    }
+    
+    func loadNextPage() async {
+        do {
+            if (await pager.canLoadNext) {
+                try await pager.loadNext()
+            } else {
+                loadedAllPages = true
+            }
+        }
+        catch {
+            logger.log("\(error)")
+        }
+    }
+    
+    func addFavorite(planet: PlanetsQuery.Data.AllPlanets.Planet) {
+        favoritePlanets.append(planet.name!)
         UserDefaults.standard.set(favoritePlanets, forKey: key)
     }
-    func removeFavorite(planet: String) {
-        favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet)!)
-        UserDefaults.standard.set(favoritePlanets, forKey: key)
+    
+    func removeFavorite(planet: PlanetsQuery.Data.AllPlanets.Planet) {
+        if hasFavorite(planet: planet) {
+            favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet.name!)!)
+            UserDefaults.standard.set(favoritePlanets, forKey: key)
+        }
     }
-    func sortFavs() {
-        showingFavs.toggle()
+    
+    func hasFavorite(planet: PlanetsQuery.Data.AllPlanets.Planet) -> Bool {
+        return favoritePlanets.contains(planet.name!)
+    }
+    
+    func toggleFavorite(planet: PlanetsQuery.Data.AllPlanets.Planet) {
+        if hasFavorite(planet: planet) {
+            favoritePlanets.remove(at: favoritePlanets.firstIndex(of: planet.name!)!)
+            UserDefaults.standard.set(favoritePlanets, forKey: key)
+        } else {
+            addFavorite(planet: planet)
+        }
+    }
+    
+    func getPlanets() -> [PlanetsQuery.Data.AllPlanets.Planet] {
+        if showingFavorites {
+            return planets.filter(hasFavorite)
+        } else {
+            return planets
+        }
+    }
+    
+    func filterFavorites() {
+        showingFavorites.toggle()
     }
 }
+
 

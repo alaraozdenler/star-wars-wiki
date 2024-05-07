@@ -16,18 +16,12 @@ import os
     var favoriteCharacters: [String] = []
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<PeopleQuery, PeopleQuery>>
+    var loadedAllPages = false
     private let key = "favChars"
-    var showingFavs = false
-    var filteredCharacters: [PeopleQuery.Data.AllPeople.Person] {
-        if showingFavs {
-            return characters.filter { favoriteCharacters.contains($0.name!) }
-        } else {
-            return characters
-        }
-    }
+    var showingFavorites = false
     
     init(characters: [PeopleQuery.Data.AllPeople.Person]) {
-        let initialQuery = PeopleQuery(after: nil, first: 10)
+        let initialQuery = PeopleQuery(after: nil, first: 8)
         pager = AsyncGraphQLQueryPager(
             client: Network.shared.apollo,
             initialQuery: initialQuery,
@@ -40,7 +34,7 @@ import os
             pageResolver: { page, paginationDirection in
                 switch paginationDirection {
                 case .next:
-                    return PeopleQuery(after: page.endCursor ?? .none, first: 10)
+                    return PeopleQuery(after: page.endCursor ?? .none, first: 8)
                 case .previous:
                     return nil
                 }
@@ -59,7 +53,7 @@ import os
                     self.characters += nextPages[nextPages.endIndex - 1].allPeople?.people as! [PeopleQuery.Data.AllPeople.Person]
                 }
             case .failure(let error):
-                self.logger.warning("\(error.localizedDescription)")
+                self.logger.warning("\(error)")
                 break
             }
         }
@@ -67,16 +61,60 @@ import os
             favoriteCharacters = UserDefaults.standard.array(forKey: key) as! [String]
         }
         UserDefaults.standard.set(favoriteCharacters, forKey: key)
+        
     }
-    func addFavorite(character: String) {
-        favoriteCharacters.append(character)
+    
+    func loadInitialPage() async {
+        await pager.fetch()
+    }
+    
+    func loadNextPage() async {
+        do {
+            if (await pager.canLoadNext) {
+                try await pager.loadNext()
+            } else {
+                loadedAllPages = true
+            }
+        }
+        catch {
+            logger.log("\(error)")
+        }
+    }
+    
+    func addFavorite(character: PeopleQuery.Data.AllPeople.Person) {
+        favoriteCharacters.append(character.name!)
         UserDefaults.standard.set(favoriteCharacters, forKey: key)
     }
-    func removeFavorite(character: String) {
-        favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character)!)
-        UserDefaults.standard.set(favoriteCharacters, forKey: key)
+    
+    func removeFavorite(character: PeopleQuery.Data.AllPeople.Person) {
+        if hasFavorite(character: character) {
+            favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character.name!)!)
+            UserDefaults.standard.set(favoriteCharacters, forKey: key)
+        }
     }
-    func sortFavs() {
-        showingFavs.toggle()
+    
+    func hasFavorite(character: PeopleQuery.Data.AllPeople.Person) -> Bool {
+        return favoriteCharacters.contains(character.name!)
+    }
+    
+    func toggleFavorite(character: PeopleQuery.Data.AllPeople.Person) {
+        if hasFavorite(character: character) {
+            favoriteCharacters.remove(at: favoriteCharacters.firstIndex(of: character.name!)!)
+            UserDefaults.standard.set(favoriteCharacters, forKey: key)
+        } else {
+            addFavorite(character: character)
+        }
+    }
+    
+    func getCharacters() -> [PeopleQuery.Data.AllPeople.Person] {
+        if showingFavorites {
+            return characters.filter(hasFavorite)
+        } else {
+            return characters
+        }
+    }
+    
+    func filterFavorites() {
+        showingFavorites.toggle()
     }
 }

@@ -10,16 +10,17 @@ import os
 
 struct StarShipsView: View {
     @Bindable var starshipViewModel: StarShipViewModel
+    @State var loaded = false
     var body: some View {
         NavigationStack {
             List {
-                ForEach(starshipViewModel.filteredStarships, id: \.self) { starship in
+                ForEach(starshipViewModel.getStarships(), id: \.self) { starship in
                     NavigationLink {
                         StarShipDetailView(starship: starship)
                     } label: {
                         HStack {
-                            //highlight if starship is a favorite
-                            if starshipViewModel.favoriteStarships.contains(starship.name!) {
+                            //Highlight if starship is a favorite
+                            if starshipViewModel.hasFavorite(starship: starship) {
                                 Image(systemName: "star.fill").font(.caption)
                                     .foregroundStyle(.yellow)
                                     .background() {
@@ -35,40 +36,27 @@ struct StarShipsView: View {
                     }
                     .swipeActions {
                         Button() {
-                            //Add starship to favorites
-                            if starshipViewModel.favoriteStarships.contains(starship.name!) {
-                                starshipViewModel.removeFavorite(ship: starship.name!)
-                            } else {
-                                starshipViewModel.addFavorite(ship: starship.name!)
-                            }
+                            //Add starship to favorites or remove if it is already in favorites
+                            starshipViewModel.toggleFavorite(starship: starship)
                         } label: {
                             Label("", systemImage: "star")
                         }
                         .tint(.yellow)
                     }
-                    //Load the next page when scrolled down
+                    //Load the next page when scrolled all the way down to the last item on the list
                     .onAppear() {
-                        if (starshipViewModel.filteredStarships.last == starship) {
-                            Task {
-                                do {
-                                    if (await starshipViewModel.pager.canLoadNext) {
-                                        try await starshipViewModel.pager.loadNext()
-                                    }
-                                }
-                                catch {
-                                    starshipViewModel.logger.log("\(error.localizedDescription)")
-                                }
-                            }
+                        if (!starshipViewModel.loadedAllPages && starshipViewModel.starships.last == starship){
+                            Task { await starshipViewModel.loadNextPage() }
                         }
                     }
                 }
             }
-            //button to filter favorites
+            //Button to filter favorites
             .toolbar {
                 Button {
-                    starshipViewModel.sortFavs()
+                    starshipViewModel.filterFavorites()
                 } label: {
-                    if starshipViewModel.showingFavs {
+                    if starshipViewModel.showingFavorites {
                         Label("", systemImage: "star.fill")
                     } else {
                         Label("", systemImage: "star")
@@ -77,12 +65,8 @@ struct StarShipsView: View {
             }
             .navigationTitle("Starships")
             .onAppear() {
-                Task {
-                    await starshipViewModel.pager.fetch()
-                }
+                Task { await starshipViewModel.loadInitialPage()}
             }
         }
     }
 }
-
-

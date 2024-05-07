@@ -16,18 +16,11 @@ import os
     var favoriteStarships: [String] = []
     var logger = Logger()
     var pager : AsyncGraphQLQueryPager<PaginationOutput<StarShipsQuery, StarShipsQuery>>
+    var loadedAllPages = false
     private let key = "favShips"
-    var showingFavs = false
-    var filteredStarships: [StarShipsQuery.Data.AllStarships.Starship] {
-        if showingFavs {
-            return starships.filter { favoriteStarships.contains($0.name!) }
-        } else {
-            return starships
-        }
-    }
-    
+    var showingFavorites = false
     init(starships: [StarShipsQuery.Data.AllStarships.Starship]) {
-        let initialQuery = StarShipsQuery(after: nil, first: 10)
+        let initialQuery = StarShipsQuery(after: nil, first: 8)
         pager = AsyncGraphQLQueryPager(
             client: Network.shared.apollo,
             initialQuery: initialQuery,
@@ -40,7 +33,7 @@ import os
             pageResolver: { page, paginationDirection in
                 switch paginationDirection {
                 case .next:
-                    return StarShipsQuery(after: page.endCursor ?? .none, first: 10)
+                    return StarShipsQuery(after: page.endCursor ?? .none, first: 8)
                 case .previous:
                     return nil
                 }
@@ -59,7 +52,7 @@ import os
                     self.starships += nextPages[nextPages.endIndex - 1].allStarships?.starships as! [StarShipsQuery.Data.AllStarships.Starship]
                 }
             case .failure(let error):
-                self.logger.warning("\(error.localizedDescription)")
+                self.logger.warning("\(error)")
                 break
             }
         }
@@ -68,15 +61,57 @@ import os
         }
         UserDefaults.standard.set(favoriteStarships, forKey: key)
     }
-    func addFavorite(ship: String) {
-        favoriteStarships.append(ship)
+    func loadInitialPage() async {
+        await pager.fetch()
+    }
+    
+    func loadNextPage() async {
+        do {
+            if (await pager.canLoadNext) {
+                try await pager.loadNext()
+            } else {
+                loadedAllPages = true
+            }
+        }
+        catch {
+            logger.log("\(error)")
+        }
+    }
+    
+    func addFavorite(starship: StarShipsQuery.Data.AllStarships.Starship) {
+        favoriteStarships.append(starship.name!)
         UserDefaults.standard.set(favoriteStarships, forKey: key)
     }
-    func removeFavorite(ship: String) {
-        favoriteStarships.remove(at: favoriteStarships.firstIndex(of: ship)!)
-        UserDefaults.standard.set(favoriteStarships, forKey: key)
+    
+    func removeFavorite(starship: StarShipsQuery.Data.AllStarships.Starship) {
+        if hasFavorite(starship: starship) {
+            favoriteStarships.remove(at: favoriteStarships.firstIndex(of: starship.name!)!)
+            UserDefaults.standard.set(favoriteStarships, forKey: key)
+        }
     }
-    func sortFavs() {
-        showingFavs.toggle()
+    
+    func hasFavorite(starship: StarShipsQuery.Data.AllStarships.Starship) -> Bool {
+        return favoriteStarships.contains(starship.name!)
+    }
+    
+    func toggleFavorite(starship: StarShipsQuery.Data.AllStarships.Starship) {
+        if hasFavorite(starship: starship) {
+            favoriteStarships.remove(at: favoriteStarships.firstIndex(of: starship.name!)!)
+            UserDefaults.standard.set(favoriteStarships, forKey: key)
+        } else {
+            addFavorite(starship: starship)
+        }
+    }
+    
+    func getStarships() -> [StarShipsQuery.Data.AllStarships.Starship] {
+        if showingFavorites {
+            return starships.filter(hasFavorite)
+        } else {
+            return starships
+        }
+    }
+    
+    func filterFavorites() {
+        showingFavorites.toggle()
     }
 }

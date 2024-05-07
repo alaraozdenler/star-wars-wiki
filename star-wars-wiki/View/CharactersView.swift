@@ -13,13 +13,13 @@ struct CharactersView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(characterViewModel.filteredCharacters, id: \.self) { character in
+                ForEach(characterViewModel.getCharacters(), id: \.self) { character in
                     NavigationLink {
                         CharacterDetailView(character: character)
                     } label: {
                         HStack {
-                            //highlight if character is a favorite
-                            if characterViewModel.favoriteCharacters.contains(character.name!) {
+                            //Highlight if character is a favorite
+                            if characterViewModel.hasFavorite(character: character) {
                                 Image(systemName: "star.fill").font(.caption)
                                     .foregroundStyle(.yellow)
                                     .background() {
@@ -34,41 +34,28 @@ struct CharactersView: View {
                         }
                     }
                     .swipeActions {
-                        Button() {
-                            //Add character to favorites
-                            if characterViewModel.favoriteCharacters.contains(character.name!) {
-                                characterViewModel.removeFavorite(character: character.name!)
-                            } else {
-                                characterViewModel.addFavorite(character: character.name!)
-                            }
+                        Button {
+                            //Add character to favorites or remove if it is already in favorites
+                            characterViewModel.toggleFavorite(character: character)
                         } label: {
                             Label("", systemImage: "star")
                         }
                         .tint(.yellow)
                     }
-                    //Load the next page when scrolled down
+                    //Load the next page when scrolled all the way down to the last item on the list
                     .onAppear() {
-                        if (characterViewModel.filteredCharacters.last == character){
-                            Task {
-                                do {
-                                    if (await characterViewModel.pager.canLoadNext) {
-                                        try await characterViewModel.pager.loadNext()
-                                    }
-                                }
-                                catch {
-                                    characterViewModel.logger.log("\(error.localizedDescription)")
-                                }
-                            }
+                        if (!characterViewModel.loadedAllPages && characterViewModel.characters.last == character){
+                            Task { await characterViewModel.loadNextPage() }
                         }
                     }
                 }
             }
-            //button to filter favorites
+            //Button to filter favorites
             .toolbar {
                 Button {
-                    characterViewModel.sortFavs()
+                    characterViewModel.filterFavorites()
                 } label: {
-                    if characterViewModel.showingFavs {
+                    if characterViewModel.showingFavorites {
                         Label("", systemImage: "star.fill")
                     } else {
                         Label("", systemImage: "star")
@@ -77,9 +64,7 @@ struct CharactersView: View {
             }
             .navigationTitle("Characters")
             .onAppear() {
-                Task {
-                    await characterViewModel.pager.fetch()
-                }
+                Task { await characterViewModel.loadInitialPage() }
             }
         }
     }
