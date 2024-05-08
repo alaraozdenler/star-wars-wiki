@@ -1,0 +1,31 @@
+//
+//  Authentication.swift
+//  star-wars-wiki
+//
+//  Created by Alara Özdenler on 07.05.24.
+//
+
+import Foundation
+import LocalAuthentication
+
+@Observable class Authentication {
+    var isUnlocked = false
+    
+    func authenticate() async {
+        let context = LAContext()
+        var error: NSError?
+        
+        while !isUnlocked {
+            if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+                let reason = "We need to unlock the app"
+                do {
+                    self.isUnlocked = try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason)
+                }
+                catch {
+                    // Error handling
+                    print(error)
+                }
+            }
+        }
+    }
+}
