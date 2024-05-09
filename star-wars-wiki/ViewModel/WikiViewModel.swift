@@ -42,6 +42,7 @@ import os
         self.getEntries = getEntries
         self.getID = getID
         
+        //Create pager
         let initialQuery = createQuery(nil, 10)
         pager = AsyncGraphQLQueryPager(
             client: Network.shared.client,

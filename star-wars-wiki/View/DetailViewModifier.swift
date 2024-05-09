@@ -13,9 +13,9 @@ struct DetailViewModifier: ViewModifier {
         content
             .padding()
             .frame(width: UIScreen.main.bounds.width*0.8, alignment: .leading)
-            .background(Color(.white))
+            .background(Color(.systemBackground))
             .cornerRadius(5)
-            .shadow(color: Color.black.opacity(0.2), radius: 5)
+            .shadow(color: ((UIViewController().traitCollection.userInterfaceStyle == .light) ? Color(.black) : Color(.white)).opacity(0.2), radius: 5)
             .padding(5)
     }
 }
