@@ -7,23 +7,24 @@
 
 import Foundation
 import LocalAuthentication
+import os
 
 @Observable class Authentication {
     var isUnlocked = false
+    let logger = Logger()
     
     func authenticate() async {
         let context = LAContext()
         var error: NSError?
         
         while !isUnlocked {
-            if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
                 let reason = "We need to unlock the app"
                 do {
-                    self.isUnlocked = try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason)
+                    self.isUnlocked = try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
                 }
                 catch {
-                    // Error handling
-                    print(error)
+                    logger.warning("Error with authentication: \(error)")
                 }
             }
         }
