@@ -61,12 +61,12 @@ import os
                 }
             }
         )
+        
         //Make favorites persistent
         if (UserDefaults.standard.array(forKey: key) != nil) {
             favorites = UserDefaults.standard.array(forKey: key) as! [String]
         }
         UserDefaults.standard.set(favorites, forKey: key)
-        
         
         pager.subscribe { result in
             switch result {

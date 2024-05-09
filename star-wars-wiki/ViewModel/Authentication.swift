@@ -18,10 +18,10 @@ import os
         var error: NSError?
         
         while !isUnlocked {
-            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
                 let reason = "We need to unlock the app"
                 do {
-                    self.isUnlocked = try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
+                    self.isUnlocked = try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason)
                 }
                 catch {
                     logger.warning("Error with authentication: \(error)")
